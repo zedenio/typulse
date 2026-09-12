@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Unbounded", system-ui, sans-serif;
+  --font-title: "Anton", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-paper: #f5f0e6;
+  --color-panel: #fffdf6;
+  --color-ink: #1d2330;
+  --color-red: #e8472f;
+  --color-blue: #2f6fe4;
+  --color-green: #1fa755;
+  --color-yellow: #f5b801;
+  --color-amber: #c07c00;
+  --color-purple: #7b4fd6;
+}
+
+html,
+body {
+  background: #f5f0e6;
+  color: #1d2330;
+  font-family: var(--font-mono);
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- flat shadows ---------- */
+.shadow-hard { box-shadow: 8px 8px 0 #1d2330; }
+.shadow-hard-sm { box-shadow: 4px 4px 0 #1d2330; }
+.shadow-chip { box-shadow: 3px 3px 0 #1d2330; }
+
+/* ---------- typography helpers ---------- */
+.font-display { font-family: var(--font-display); }
+/* Title face: Anton only ships weight 400 (already ultra-bold), so pin the
+   weight to stop browsers synthesizing a faux-bold on top of it. */
+.font-title { font-family: var(--font-title); font-weight: 400; }
+.title-shadow { text-shadow: 5px 5px 0 #f5b801; }
+.title-shadow-sm { text-shadow: 3px 3px 0 #f5b801; }
+
+/* ---------- panels & buttons ---------- */
+.panel {
+  background: #fffdf6;
+  border: 2px solid #1d2330;
+  box-shadow: 8px 8px 0 #1d2330;
+}
+.btn {
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+  border: 2px solid #1d2330;
+  background: #fffdf6;
+  color: #1d2330;
+  box-shadow: 4px 4px 0 #1d2330;
+  transition:
+    transform 0.14s cubic-bezier(0.34, 1.4, 0.5, 1),
+    box-shadow 0.14s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+}
+.btn:hover { transform: translate3d(-1px, -1px, 0); box-shadow: 5px 5px 0 #1d2330; background: #ffffff; }
+.btn:active { transform: translate3d(3px, 3px, 0); box-shadow: 1px 1px 0 #1d2330; transition-duration: 0.05s; }
+.btn:focus-visible { outline: 3px solid #2f6fe4; outline-offset: 2px; }
+.btn-primary { background: #f5b801; color: #1d2330; }
+.btn-primary:hover { background: #ffc82e; }
+.btn-blue { background: #2f6fe4; color: #f5f0e6; }
+.btn-blue:hover { background: #4784f5; }
+.btn-danger { background: #e8472f; color: #f5f0e6; }
+.btn-danger:hover { background: #f05c45; }
+.btn-green { background: #1fa755; color: #f5f0e6; }
+.btn-green:hover { background: #31c06b; }
+
+/* ---------- overlays ---------- */
+.danger-vignette {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  animation: dangerPulse 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes dangerPulse {
+  0%, 100% { box-shadow: inset 0 0 0 3px rgba(232, 71, 47, 0.12); }
+  50% { box-shadow: inset 0 0 0 7px rgba(232, 71, 47, 0.5); }
+}
+.life-flash {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 21;
+  background: rgba(232, 71, 47, 0.18);
+  animation: flashOut 0.55s ease-out forwards;
+}
+@keyframes flashOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ---------- animations ---------- */
+/* Shared easings: gentle overshoot for entrances, soft glide for exits. */
+:root {
+  --e-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --e-back: cubic-bezier(0.34, 1.4, 0.5, 1);
+  --e-soft: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.anim-pop {
+  animation: pop 0.34s var(--e-back) both;
+  will-change: transform;
+}
+@keyframes pop {
+  0% { transform: scale(1.3); }
+  60% { transform: scale(0.985); }
+  100% { transform: scale(1); }
+}
+.anim-dip {
+  animation: dip 0.38s var(--e-out) both;
+  will-change: transform;
+}
+@keyframes dip {
+  0% { transform: scale(0.78); color: #e8472f; }
+  50% { transform: scale(1.05); color: #e8472f; }
+  100% { transform: scale(1); }
+}
+.modal-in {
+  animation: modalIn 0.42s var(--e-out) both;
+  will-change: transform, opacity;
+}
+@keyframes modalIn {
+  0% { opacity: 0; transform: translate3d(0, 22px, 0) scale(0.96); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+.fade-in { animation: fadeIn 0.32s var(--e-soft) both; }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.toast-in {
+  animation: toast 1.15s var(--e-out) both;
+  will-change: transform, opacity;
+}
+@keyframes toast {
+  0% { opacity: 0; transform: translate3d(0, 16px, 0) scale(0.78); }
+  14% { opacity: 1; transform: translate3d(0, 0, 0) scale(1.05); }
+  26% { transform: translate3d(0, 0, 0) scale(1); }
+  74% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  100% { opacity: 0; transform: translate3d(0, -14px, 0) scale(0.97); }
+}
+.ghost-word {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: rgba(29, 35, 48, 0.055);
+  white-space: nowrap;
+  animation: drift linear infinite;
+  will-change: transform;
+}
+@keyframes drift {
+  from { transform: translate3d(0, 12vh, 0); }
+  to { transform: translate3d(0, -108vh, 0); }
+}
+.rank-in {
+  animation: rankIn 0.72s var(--e-back) both 0.12s;
+  will-change: transform, opacity;
+}
+@keyframes rankIn {
+  0% { opacity: 0; transform: scale(2.2) rotate(-7deg); }
+  70% { opacity: 1; transform: scale(0.96) rotate(1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+.row-flash { animation: rowFlash 1.6s var(--e-soft) infinite; }
+@keyframes rowFlash {
+  0%, 100% { background: rgba(245, 184, 1, 0.16); }
+  50% { background: rgba(245, 184, 1, 0.4); }
+}
+.pulse-soft { animation: pulseSoft 2.6s var(--e-soft) infinite; }
+@keyframes pulseSoft {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.dot-pan {
+  background-image: radial-gradient(rgba(29, 35, 48, 0.09) 1.4px, transparent 1.4px);
+  background-size: 26px 26px;
+  animation: dotPan 18s linear infinite;
+}
+@keyframes dotPan {
+  from { background-position: 0 0; }
+  to { background-position: 26px 26px; }
+}
+
+/* Respect players who prefer less motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.name-slot:focus { outline: none; border-color: #2f6fe4; box-shadow: 4px 4px 0 #2f6fe4; }
