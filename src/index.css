@@ -2,7 +2,7 @@
 
 @theme {
   --font-display: "Unbounded", system-ui, sans-serif;
-  --font-title: "Anton", system-ui, sans-serif;
+  --font-title: "Anton", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   --color-paper: #f5f0e6;
   --color-panel: #fffdf6;
@@ -36,6 +36,46 @@ body {
 .font-title { font-family: var(--font-title); font-weight: 400; }
 .title-shadow { text-shadow: 5px 5px 0 #f5b801; }
 .title-shadow-sm { text-shadow: 3px 3px 0 #f5b801; }
+
+/* ---------- responsive menu composition ---------- */
+.menu-viewport {
+  scrollbar-gutter: stable both-edges;
+}
+.menu-frame {
+  padding-block: clamp(1rem, 3vh, 2rem);
+}
+.menu-shell {
+  gap: clamp(0.8rem, 2.5vh, 1.5rem);
+}
+.menu-title-block {
+  gap: clamp(0.4rem, 1.3vh, 0.75rem);
+}
+.menu-title {
+  /* Width alone made the logo too tall on short laptops. */
+  font-size: clamp(4rem, min(20vw, 22vh), 11rem);
+  line-height: 0.86;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+/* Compact landscape desktops: keep the complete start screen visible. */
+@media (min-width: 640px) and (max-height: 700px) {
+  .menu-frame { padding-block: 0.65rem; }
+  .menu-shell { gap: 0.65rem; }
+  .menu-title-block { gap: 0.3rem; }
+  .menu-title { font-size: clamp(5rem, 19vh, 8rem); }
+  .menu-profile { padding-block: 0.35rem; }
+  .menu-mode { padding: 0.5rem; }
+  .menu-start { gap: 0.35rem; }
+  .menu-start-button { padding-block: 0.65rem; }
+  .menu-help-card { padding: 0.5rem 0.7rem; }
+  .menu-help-description { display: none; }
+}
+
+/* Very short windows remain usable and scroll from the true top edge. */
+@media (max-height: 520px) {
+  .menu-frame { align-items: flex-start; }
+}
 
 /* ---------- panels & buttons ---------- */
 .panel {

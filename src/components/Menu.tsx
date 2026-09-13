@@ -65,7 +65,7 @@ export default function Menu({
   }, [onStart, mode]);
 
   return (
-    <div className="fade-in relative z-10 flex h-full flex-col items-center justify-center overflow-y-auto px-4 py-8">
+    <div className="fade-in menu-viewport relative z-10 h-full overflow-x-hidden overflow-y-auto px-4">
       {/* drifting ghost words */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         {ghosts.map((g, i) => (
@@ -86,11 +86,14 @@ export default function Menu({
       </div>
       <div className="dot-pan pointer-events-none absolute inset-0" aria-hidden />
 
-      <div className="relative flex w-full max-w-3xl flex-col items-center gap-6 lg:max-w-4xl">
+      {/* min-h-full centres normal layouts, but unlike justify-center on the
+          scroll container it keeps the top reachable on short displays. */}
+      <div className="menu-frame relative z-10 flex min-h-full w-full items-center justify-center">
+      <div className="menu-shell relative flex w-full max-w-3xl flex-col items-center lg:max-w-4xl">
         {/* Profile chip */}
         <button
           onClick={() => { sfx.init(); sfx.ui(); onOpenProfile(); }}
-          className="btn flex w-full max-w-md items-center gap-3 rounded-sm px-3 py-2 text-left"
+          className="btn menu-profile flex w-full max-w-md items-center gap-3 rounded-sm px-3 py-2 text-left"
           aria-label="Open profile and stats"
         >
           <UserRound size={18} className="shrink-0 text-ink/70" />
@@ -115,11 +118,11 @@ export default function Menu({
         </button>
 
         {/* Title */}
-        <div className="flex flex-col items-center gap-3 text-center">
+        <div className="menu-title-block flex flex-col items-center text-center">
           <div className="pulse-soft border-2 border-ink bg-panel px-3 py-1 text-[10px] font-bold tracking-[0.5em] text-ink shadow-chip">
             SPEED-TYPING // ARCADE
           </div>
-          <h1 className="title-shadow font-title text-[24vw] leading-none tracking-tight text-ink sm:text-[8.5rem] lg:text-[11rem]">
+          <h1 className="title-shadow menu-title font-title tracking-tight text-ink">
             TYPULSE
           </h1>
           <p className="max-w-md text-xs leading-relaxed text-ink/60 sm:text-sm">
@@ -136,7 +139,7 @@ export default function Menu({
               <button
                 key={m.id}
                 onClick={() => { sfx.init(); sfx.ui(); setMode(m.id); }}
-                className="relative flex flex-col items-start gap-1 rounded-sm border-2 border-ink p-3 text-left transition-all duration-100 sm:p-3.5"
+                className="menu-mode relative flex flex-col items-start gap-1 rounded-sm border-2 border-ink p-3 text-left transition-all duration-100 sm:p-3.5"
                 style={{
                   background: active ? m.color : "#fffdf6",
                   color: active ? "#f5f0e6" : "#1d2330",
@@ -179,10 +182,10 @@ export default function Menu({
         </div>
 
         {/* Start */}
-        <div className="flex flex-col items-center gap-2.5">
+        <div className="menu-start flex flex-col items-center gap-2.5">
           <button
             onClick={start}
-            className="btn btn-primary flex items-center gap-3 rounded-sm px-10 py-4 text-base font-extrabold tracking-[0.2em] sm:px-14 sm:text-lg"
+            className="btn btn-primary menu-start-button flex items-center gap-3 rounded-sm px-10 py-4 text-base font-extrabold tracking-[0.2em] sm:px-14 sm:text-lg"
           >
             <Play size={20} />
             START
@@ -196,21 +199,22 @@ export default function Menu({
         </div>
 
         {/* How to play */}
-        <div className="grid w-full max-w-2xl grid-cols-1 gap-2.5 sm:grid-cols-3">
+        <div className="menu-help grid w-full max-w-2xl grid-cols-1 gap-2.5 sm:grid-cols-3">
           {[
             { icon: Keyboard, t: "TYPE THE WORD", d: "First letter locks on. No backspace — trust yourself." },
             { icon: Timer, t: "BEAT THE RING", d: "When the ring touches the pad, the word detonates." },
-            { icon: Heart, t: "3 LIVES", d: "Wrong keys break your combo. Don't let the ring close." },
+            { icon: Heart, t: "STAY ALIVE", d: "A missed word costs a life. Expert mode gives you only two." },
           ].map((c) => (
-            <div key={c.t} className="panel flex items-start gap-3 rounded-sm px-4 py-3 shadow-hard-sm">
+            <div key={c.t} className="panel menu-help-card flex items-start gap-3 rounded-sm px-4 py-3 shadow-hard-sm">
               <c.icon size={18} className="mt-0.5 shrink-0 text-ink" />
               <div>
                 <div className="font-display text-[10px] font-bold tracking-[0.18em] text-ink">{c.t}</div>
-                <div className="mt-1 text-[11px] leading-snug text-ink/55">{c.d}</div>
+                <div className="menu-help-description mt-1 text-[11px] leading-snug text-ink/55">{c.d}</div>
               </div>
             </div>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );
