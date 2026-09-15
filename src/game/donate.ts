@@ -13,7 +13,7 @@
  * While it is left empty the button still appears, but opens a thank-you
  * panel instead of a payment page, so nothing is broken in the meantime.
  */
-export const DONATE_URL = "";
+export const DONATE_URL = "https://ko-fi.com/softlyboiledyuke";
 
 /** True when DONATE_URL has been filled in with a real link. */
 export function hasDonateTarget(): boolean {
