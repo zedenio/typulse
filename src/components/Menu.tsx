@@ -4,6 +4,7 @@ import { sfx } from "../game/audio";
 import { MODES, MODE_LIST, type ModeId } from "../game/modes";
 import { avgWpm, loadStats } from "../game/stats";
 import type { Profile } from "../game/profile";
+import Donate from "./Donate";
 
 const GHOSTS = [
   "velocity", "stardust", "blitz", "keyboard", "overdrive", "turbo",
@@ -208,11 +209,16 @@ export default function Menu({
             <div key={c.t} className="panel menu-help-card flex items-start gap-3 rounded-sm px-4 py-3 shadow-hard-sm">
               <c.icon size={18} className="mt-0.5 shrink-0 text-ink" />
               <div>
-                <div className="font-display text-[10px] font-bold tracking-[0.18em] text-ink">{c.t}</div>
+                <div className="menu-help-title font-display text-[10px] font-bold tracking-[0.18em] text-ink">{c.t}</div>
                 <div className="menu-help-description mt-1 text-[11px] leading-snug text-ink/55">{c.d}</div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Support — small footer link; existing layout sizes are untouched */}
+        <div className="menu-donate flex w-full justify-center">
+          <Donate />
         </div>
       </div>
       </div>
