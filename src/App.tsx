@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import Menu from "./components/Menu";
 import GameScreen from "./components/GameScreen";
 import ProfilePanel from "./components/ProfilePanel";
@@ -87,6 +88,8 @@ export default function App() {
           onClose={() => setShowProfile(false)}
         />
       )}
+
+      <Analytics />
     </div>
   );
 }
