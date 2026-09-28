@@ -84,6 +84,9 @@ export default function ProfilePanel({
     [stats.recent]
   );
 
+  const trimmed = draft.trim();
+  const nameOk = trimmed.length >= 2 && trimmed !== profile.name;
+
   const saveName = () => {
     const trimmed = draft.trim();
     if (trimmed.length < 2) { setErr("Name needs at least 2 characters."); return; }
@@ -145,7 +148,8 @@ export default function ProfilePanel({
                 />
                 <button
                   onClick={saveName}
-                  className="btn btn-green flex shrink-0 items-center gap-1.5 rounded-sm px-3 py-2.5 text-[11px] font-bold tracking-[0.1em]"
+                  disabled={!nameOk}
+                  className="btn btn-green flex shrink-0 items-center gap-1.5 rounded-sm px-3 py-2.5 text-[11px] font-bold tracking-[0.1em] disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <Check size={13} /> SAVE
                 </button>

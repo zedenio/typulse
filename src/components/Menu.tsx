@@ -5,6 +5,7 @@ import { MODES, MODE_LIST, type ModeId } from "../game/modes";
 import { avgWpm, loadStats } from "../game/stats";
 import type { Profile } from "../game/profile";
 import Donate from "./Donate";
+import LegalModal from "./LegalModal";
 
 const GHOSTS = [
   "velocity", "stardust", "blitz", "keyboard", "overdrive", "turbo",
@@ -27,6 +28,7 @@ export default function Menu({
   onOpenProfile: () => void;
 }) {
   const [mode, setMode] = useState<ModeId>("normal");
+  const [legal, setLegal] = useState<"about" | "privacy" | "terms" | null>(null);
   const stats = useMemo(() => loadStats(), []);
   const total = stats.total;
 
@@ -127,7 +129,7 @@ export default function Menu({
             TYPULSE
           </h1>
           <p className="max-w-md text-xs leading-relaxed text-ink/60 sm:text-sm">
-            Words drop. The ring closes. Type them before they detonate.
+            Type fast. Build combos. Beat the ring.
           </p>
         </div>
 
@@ -216,12 +218,21 @@ export default function Menu({
           ))}
         </div>
 
-        {/* Support — small footer link; existing layout sizes are untouched */}
-        <div className="menu-donate flex w-full justify-center">
+        {/* Support + legal footer */}
+        <div className="menu-donate flex w-full flex-col items-center gap-2">
           <Donate />
+          <div className="flex items-center gap-3 text-[8px] tracking-[0.15em] text-ink/30">
+            <button onClick={() => setLegal("about")} className="hover:text-ink/60 transition-colors">ABOUT</button>
+            <span>·</span>
+            <button onClick={() => setLegal("privacy")} className="hover:text-ink/60 transition-colors">PRIVACY</button>
+            <span>·</span>
+            <button onClick={() => setLegal("terms")} className="hover:text-ink/60 transition-colors">TERMS</button>
+          </div>
         </div>
       </div>
       </div>
+
+      {legal && <LegalModal page={legal} onClose={() => setLegal(null)} />}
     </div>
   );
 }

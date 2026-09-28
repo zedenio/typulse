@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="theme-color" content="#f5f0e6" />
-    <meta name="description" content="TYPULSE — a fast-paced typing rhythm game. Words drop, rings close, type fast." />
-    <title>TYPULSE</title>
+    <meta name="description" content="TYPULSE is a fast-paced typing rhythm game. Type words before the rings close, build your combo, and test how fast you can type." />
+    <title>TYPULSE — Fast-Paced Typing Rhythm Game</title>
     <!-- Favicon: the "T" from the TYPULSE logo, drawn as the real Anton glyph
          outline so it matches the title exactly. Inlined so the single-file
          build stays self-contained (no extra network request). -->
@@ -19,6 +19,30 @@
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3568752383759082"
       crossorigin="anonymous"
     ></script>
+    <!-- Structured data: tells Google this is a playable game, not a thin page -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "TYPULSE",
+      "url": "https://typulse.com",
+      "description": "TYPULSE is a fast-paced typing rhythm game. Type words before the rings close, build your combo, and test how fast you can type.",
+      "genre": ["Typing", "Arcade", "Rhythm", "Educational"],
+      "gamePlatform": ["Web browser", "Desktop", "Mobile"],
+      "playMode": "SinglePlayer",
+      "applicationCategory": "Game",
+      "operatingSystem": "Any browser with HTML5 Canvas",
+      "isAccessibleForFree": true,
+      "isFamilyFriendly": true,
+      "inLanguage": "en",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -28,6 +52,143 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!--
+      Static crawlable content for search engines and AdSense review.
+      React replaces #root on load, but crawlers that don't execute JS
+      will read this section, giving the page real indexable substance.
+    -->
+    <noscript>
+      <main style="max-width:720px;margin:0 auto;padding:2rem;font-family:system-ui,sans-serif;color:#1d2330;line-height:1.7">
+        <h1>TYPULSE — Fast-Paced Typing Rhythm Game</h1>
+
+        <p>
+          TYPULSE is a free browser-based typing game inspired by rhythm
+          arcades like osu!. Words appear on screen inside shrinking approach
+          rings. Type each word before the ring closes — or it detonates and
+          costs you a life. The faster and more accurately you type, the higher
+          your score climbs.
+        </p>
+
+        <h2>How to Play</h2>
+        <ol>
+          <li><strong>Type the first letter</strong> of any word to lock onto it. A targeting reticle and blinking caret show which word you are typing.</li>
+          <li><strong>Finish the word</strong> before the approach ring touches the pad. Each cleared word earns points scaled by your typing speed.</li>
+          <li><strong>Build your combo.</strong> Consecutive words increase a multiplier (up to ×8) that amplifies every score. A wrong key resets the combo and deducts points.</li>
+          <li><strong>Don't run out of lives.</strong> You start with 2–3 lives depending on the mode. When a ring closes, the word explodes and you lose one.</li>
+        </ol>
+
+        <h2>Four Difficulty Modes</h2>
+        <ul>
+          <li><strong>Easy</strong> — Slow rings, shorter words, relaxed spawn rate. Great for warming up or learning the controls.</li>
+          <li><strong>Normal</strong> — The classic experience. Standard ring timing with the full word pool.</li>
+          <li><strong>Hard</strong> — Rings close roughly 40% faster, longer words appear earlier, and more words are on screen at once.</li>
+          <li><strong>Expert</strong> — Twice as hard as Hard mode. Rings slam shut, only two lives, and the highest score multiplier for players who can keep up.</li>
+        </ul>
+
+        <h2>Speed-Based Scoring</h2>
+        <p>
+          Every word is individually timed from the first keystroke to the last.
+          Typing speed is converted to words-per-minute and a speed tier is
+          displayed: <strong>GOOD</strong> (40+ WPM), <strong>FAST</strong>
+          (60+), <strong>SUPERB</strong> (85+), or <strong>BLAZING</strong>
+          (110+). Faster typing earns up to 3.5× more points than slow typing
+          on the same word. This stacks with the combo multiplier and the mode
+          multiplier, so skilled play on Expert with a high combo produces
+          enormous scores.
+        </p>
+
+        <h2>Smooth Difficulty Progression</h2>
+        <p>
+          Instead of jumping in sudden steps, difficulty rises continuously
+          using an exponentially eased curve. As you clear more words, the
+          approach rings tighten gradually, spawn intervals shorten, and longer
+          words begin to appear — all smoothly, so you never feel a jarring
+          spike. A time-based component also ensures that stalling never makes
+          the game easier.
+        </p>
+
+        <h2>Profile and Career Statistics</h2>
+        <p>
+          Create a profile with a username to track your performance over time.
+          TYPULSE records every run and shows lifetime career statistics:
+          average WPM, accuracy, best score, best combo, total words cleared,
+          keystrokes, playtime, and your fastest single word. A per-mode
+          breakdown shows where you are strongest, and a bar chart of recent
+          scores visualises your improvement.
+        </p>
+
+        <h2>Game Features</h2>
+        <ul>
+          <li>5,800-word dictionary sourced from a real English corpus, filtered for typeability and family-friendliness.</li>
+          <li>Shuffle-bag word selection ensures no word repeats within a run. Every session is reshuffled.</li>
+          <li>Procedural WebAudio sound effects — keystroke ticks, combo chimes, explosion rumbles — synthesised at runtime with zero asset downloads.</li>
+          <li>Screen shake, particle bursts, ring shockwaves, and score popups provide satisfying feedback on every action.</li>
+          <li>Frame-rate-independent physics using exponential damping, so the game runs identically on 60 Hz and 144 Hz displays.</li>
+          <li>Full keyboard and touch support, including mobile virtual-keyboard handling.</li>
+          <li>Pause on Escape or tab switch, with instant restart via Enter.</li>
+          <li>Runs entirely in the browser — no downloads, no accounts, no server required. All data stays on your device.</li>
+        </ul>
+
+        <h2>Technical Details</h2>
+        <p>
+          TYPULSE is built with React, TypeScript, Vite, and Tailwind CSS. The
+          game canvas is rendered with the HTML5 Canvas 2D API at up to 2×
+          device-pixel-ratio for sharp text on high-DPI screens. Word sprites
+          are pre-rasterised into two static layers (typed and untyped) and
+          revealed via clipping, so no canvas work happens during keystrokes.
+          The entire application compiles to a single self-contained HTML file
+          under 340 KB.
+        </p>
+
+        <hr />
+
+        <h2 id="about">About TYPULSE</h2>
+        <p>
+          TYPULSE is an independent, free-to-play browser game. It was built as
+          a personal project to combine the feel of rhythm games with practical
+          typing-speed improvement. There are no locked modes, no pay-to-win
+          mechanics, and no required sign-ups. Ads help support continued
+          development. Tips via Ko-fi are welcome but entirely optional and
+          never unlock anything.
+        </p>
+
+        <h2 id="privacy">Privacy Policy</h2>
+        <p>
+          TYPULSE respects your privacy. Here is exactly what happens with your
+          data:
+        </p>
+        <ul>
+          <li><strong>Local storage only.</strong> Your profile, game settings, and career statistics are stored in your browser's localStorage. They never leave your device and are not transmitted to any server.</li>
+          <li><strong>No accounts or sign-ups.</strong> TYPULSE does not collect your name, email address, or any personal information.</li>
+          <li><strong>No analytics or tracking scripts</strong> beyond Google AdSense.</li>
+          <li><strong>Google AdSense.</strong> This site displays ads served by Google. Google may use cookies and web beacons to serve ads based on your prior visits to this and other websites. You can opt out of personalised advertising at <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ads Settings</a> or at <a href="https://www.aboutads.info/" target="_blank" rel="noopener">www.aboutads.info</a>. For more information, see <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">How Google uses information from sites that use its services</a>.</li>
+          <li><strong>Google Fonts.</strong> Font files are loaded from Google's CDN. Google's font-serving privacy policy is available at <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener">developers.google.com/fonts/faq/privacy</a>.</li>
+          <li><strong>No other third parties</strong> receive any data from this site.</li>
+        </ul>
+        <p>
+          If you have questions about this policy, contact the developer via
+          the links on the site.
+        </p>
+
+        <h2 id="terms">Terms of Use</h2>
+        <p>
+          TYPULSE is provided "as is" without warranty of any kind. You may
+          play the game freely for personal, non-commercial use. You may not
+          redistribute, resell, or embed the game on other websites without
+          permission. All game code, artwork, and sound design are the
+          intellectual property of the developer. Ads are served by Google
+          AdSense and are governed by Google's own terms of service.
+        </p>
+
+        <h2 id="contact">Contact</h2>
+        <p>
+          For questions, feedback, or issues, reach out via the project's
+          GitHub repository.
+        </p>
+      </main>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

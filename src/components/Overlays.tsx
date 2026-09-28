@@ -107,12 +107,16 @@ export function GameOverPanel({
           </span>
         </div>
 
-        {(isBestScore || isBestWpm) && (
-          <div className="flex items-center gap-1.5 border-2 border-ink bg-green px-3 py-1 text-[11px] font-bold tracking-[0.25em] text-paper shadow-chip">
+        {isBestScore || isBestWpm ? (
+          <div className="anim-pop flex items-center gap-1.5 border-2 border-ink bg-green px-3 py-1 text-[11px] font-bold tracking-[0.25em] text-paper shadow-chip">
             <Star size={12} fill="currentColor" />
-            {isBestScore ? "NEW BEST SCORE" : "NEW BEST WPM"}
+            {isBestScore && isBestWpm
+              ? "NEW PERSONAL BESTS"
+              : isBestScore
+              ? "NEW BEST SCORE"
+              : "NEW BEST WPM"}
           </div>
-        )}
+        ) : null}
 
         <div className="flex w-full gap-3 pt-1">
           <button onClick={onRestart} className="btn btn-primary flex flex-1 items-center justify-center gap-2 rounded-sm px-6 py-3.5 text-sm font-extrabold tracking-[0.15em]">
